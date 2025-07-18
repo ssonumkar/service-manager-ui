@@ -1,1 +1,9 @@
-<p>resource-list works!</p>
+<ul>
+  <li *ngFor="let resource of resources">
+    <button class="danger" (click)="removeResource(resource.id)">🗑️ Delete Resource</button>
+    <app-toggle-section [title]="'Resource: ' + resource.id">
+      <app-resource-form [resource]="resource" ></app-resource-form>
+      
+    </app-toggle-section>
+  </li>
+</ul>

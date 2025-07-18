@@ -1,0 +1,8 @@
+<div class="toggle-header" (click)="toggle()">
+  <span class="chevron">{{ expanded ? '▼' : '▶' }}</span>
+  <span class="label">{{ title }}</span>
+</div>
+
+<div class="toggle-content" *ngIf="expanded">
+  <ng-content></ng-content>
+</div>

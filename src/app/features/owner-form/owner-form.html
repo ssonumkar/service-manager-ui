@@ -1,1 +1,16 @@
-<p>owner-form works!</p>
+<form *ngIf="owner">
+  <label>
+    Name:
+    <input [(ngModel)]="owner.name" name="name" />
+  </label>
+
+  <label>
+    Account:
+    <input [(ngModel)]="owner.accountNumber" name="accountNumber" />
+  </label>
+
+  <label>
+    Level:
+    <input type="number" [(ngModel)]="owner.level" name="level" />
+  </label>
+</form>
