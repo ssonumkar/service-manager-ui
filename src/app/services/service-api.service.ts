@@ -2,10 +2,11 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Service } from "../models/service.model";
 import { Observable } from "rxjs/internal/Observable";
+import { environment } from "../../environments/environment";
 
 @Injectable({providedIn: "root"})
 export class ServiceApiService {
-    baseUrl = "/api/services";
+    private baseUrl = `${environment.apiUrl}/service`;
     constructor(private http: HttpClient) {}
     
     getServices() {
@@ -19,7 +20,7 @@ export class ServiceApiService {
     }
 
     updateService(service: Service): Observable<Service> {
-        return this.http.put<Service>(`${this.baseUrl}/${service.id}`, service);
+        return this.http.put<Service>(this.baseUrl, service);
     }
 
     deleteService(serviceId: string): Observable<void> {
