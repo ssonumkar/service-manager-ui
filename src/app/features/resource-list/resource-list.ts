@@ -6,6 +6,9 @@ import { Component } from '@angular/core';
   templateUrl: './resource-list.html',
   styleUrl: './resource-list.scss'
 })
-export class ResourceList {
+export class ResourceListComponent {
+  // This component will handle the display of resources associated with a service
+  // It will likely include methods to fetch and display resources, as well as handle any interactions
+  // such as adding or removing resources from a service.
 
 }

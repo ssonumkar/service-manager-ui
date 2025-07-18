@@ -6,6 +6,6 @@ import { Component } from '@angular/core';
   templateUrl: './resource-form.html',
   styleUrl: './resource-form.scss'
 })
-export class ResourceForm {
+export class ResourceFormComponent {
 
 }

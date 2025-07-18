@@ -6,6 +6,6 @@ import { Component } from '@angular/core';
   templateUrl: './service-form.html',
   styleUrl: './service-form.scss'
 })
-export class ServiceForm {
+export class ServiceFormComponent {
 
 }
