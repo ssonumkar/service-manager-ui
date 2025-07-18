@@ -1,1 +1,22 @@
-<p>service-list works!</p>
+<h2>Service List</h2>
+
+<!-- Loading message -->
+<div *ngIf="loading">Loading...</div>
+
+<!-- Error message -->
+<div *ngIf="error" class="error">{{ error }}</div>
+
+<!-- Service list -->
+<ul *ngIf="!loading && services && services.length > 0;">
+  <li *ngFor="let service of services">
+    <strong>{{ service.id }}</strong>
+    <button (click)="editService(service)">Edit</button>
+    <button (click)="deleteService(service.id)">Delete</button>
+  </li>
+</ul>
+
+<!-- Empty state -->
+<div *ngIf="!loading && services?.length === 0">
+  No services found.
+</div>
+
