@@ -1,5 +1,32 @@
-<nav>
-  <a routerLink="/">Service List</a>
-  <a routerLink="/service/new">Add Service</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-4 px-4">
+  <a class="navbar-brand d-flex align-items-center" routerLink="/">
+    <!-- <img src="assets/swisscom-logo.jpg" height="32" class="me-2" alt="Swisscom" /> -->
+    <span class="fw-bold">Swisscom Services</span>
+  </a>
+
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-bs-toggle="collapse"
+    data-bs-target="#navbarNav"
+    aria-controls="navbarNav"
+    aria-expanded="false"
+    aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse ms-4" id="navbarNav">
+    <!-- 👇 Moved nav to the left -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a routerLink="/services" routerLinkActive="active" class="nav-link">Services</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/resources" routerLinkActive="active" class="nav-link">Resources</a>
+      </li>
+      <li class="nav-item">
+        <a routerLink="/managers" routerLinkActive="active" class="nav-link">Managers</a>
+      </li>
+    </ul>
+  </div>
 </nav>
-<router-outlet></router-outlet>
