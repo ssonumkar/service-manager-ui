@@ -1,0 +1,29 @@
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th *ngFor="let header of headers">{{ header }}</th>
+      <th *ngIf="actions.length > 0">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of rows">
+      <td *ngFor="let header of headers">{{ getRowValue(row, header) }}</td>
+      <td *ngIf="actions.length > 0">
+        <button 
+          *ngIf="actions.includes('edit')" 
+          class="btn btn-outline-primary btn-sm me-2" 
+          (click)="emitAction('edit', row)" 
+          title="Edit">
+          <i class="bi bi-pencil"></i>
+        </button>
+        <button 
+          *ngIf="actions.includes('delete')" 
+          class="btn btn-outline-danger btn-sm" 
+          (click)="emitAction('delete', row)" 
+          title="Delete">
+          <i class="bi bi-trash"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
