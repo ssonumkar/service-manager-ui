@@ -6,7 +6,7 @@ import { ToggleSection } from "../../shared/components/toggle-section/toggle-sec
 
 @Component({
   selector: 'app-resource-form',
-  imports: [CommonModule, FormsModule, OwnerListComponent, ToggleSection],
+  imports: [CommonModule, FormsModule, ToggleSection],
   templateUrl: './resource-form.html',
   styleUrl: './resource-form.scss'
 })

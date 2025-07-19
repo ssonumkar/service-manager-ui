@@ -9,7 +9,7 @@ import { StateKeys } from '../../shared/constants/state.constants';
 
 @Component({
   selector: 'app-service-form',
-  imports: [CommonModule, FormsModule, ResourceListComponent],
+  imports: [CommonModule, FormsModule],
   templateUrl: './service-form.html',
   styleUrl: './service-form.scss',
   standalone: true

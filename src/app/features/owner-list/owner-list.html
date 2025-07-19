@@ -1,8 +1,11 @@
-<ul>
-  <li *ngFor="let owner of owners">
-    <app-toggle-section [title]="owner.name || 'New Owner'">
-      <app-owner-form [owner]="owner"></app-owner-form>
-      <button (click)="deleteOwner(owner.id)">🗑️ Delete Owner</button>
-    </app-toggle-section>
-  </li>
-</ul>
+<div class="container my-4">
+  <app-entity-list-wrapper
+    [title]="title"
+    [buttonText]="buttonText"
+    [columns]="columns"
+    [rows]="owners"
+    [actions]="actions"
+    (newClick)="onNewOwner()"
+    (actionClick)="handleAction($event)">
+  </app-entity-list-wrapper>
+</div>
