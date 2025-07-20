@@ -15,5 +15,6 @@ export const routes: Routes = [
     {path: 'resource/:id/edit', component: ResourceListComponent},
     {path: 'owner/:serviceId/:resourceId/edit', component: OwnerListComponent},
     {path: 'owner/:serviceId/:resourceId/new', component: OwnerFormComponent},
+    {path: 'owner/:serviceId/:resourceId/:ownerId/edit', component: OwnerFormComponent},
     {path: 'owner/:id/edit', component: OwnerListComponent}
 ];

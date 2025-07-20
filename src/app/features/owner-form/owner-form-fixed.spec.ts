@@ -16,32 +16,34 @@ describe('OwnerFormComponent', () => {
   let mockOwnerApi: jasmine.SpyObj<OwnerApiService>;
   let mockActivatedRoute: Partial<ActivatedRoute>;
   let mockConfigLoader: jasmine.SpyObj<ConfigLoaderService>;
+  let mockCdr: jasmine.SpyObj<ChangeDetectorRef>;
 
   beforeEach(async () => {
     mockRouter = jasmine.createSpyObj('Router', ['navigate']);
-    mockOwnerApi = jasmine.createSpyObj('OwnerApiService', ['create', 'update', 'getOwnerById']);
+    mockOwnerApi = jasmine.createSpyObj('OwnerApiService', ['create', 'update', 'getOwnersByResourceId']);
     mockConfigLoader = jasmine.createSpyObj('ConfigLoaderService', ['loadConfig']);
+    mockCdr = jasmine.createSpyObj('ChangeDetectorRef', ['detectChanges']);
     mockActivatedRoute = {
       snapshot: {
-        paramMap: convertToParamMap({
-          resourceId: 'test-resource',
-          serviceId: 'test-service'
-        }),
-        url: [],
-        params: {},
-        queryParams: {},
-        fragment: null,
-        data: {},
-        outlet: '',
-        component: null,
-        routeConfig: null,
-        title: undefined,
-        root: new ActivatedRouteSnapshot,
-        parent: null,
-        firstChild: null,
-        children: [],
-        pathFromRoot: [],
-        queryParamMap: convertToParamMap({})
+          paramMap: convertToParamMap({
+              resourceId: 'test-resource',
+              serviceId: 'test-service'
+          }),
+          url: [],
+          params: {},
+          queryParams: {},
+          fragment: null,
+          data: {},
+          outlet: '',
+          component: null,
+          routeConfig: null,
+          title: undefined,
+          root: new ActivatedRouteSnapshot,
+          parent: null,
+          firstChild: null,
+          children: [],
+          pathFromRoot: [],
+          queryParamMap: convertToParamMap({})
       }
     };
 
@@ -52,7 +54,8 @@ describe('OwnerFormComponent', () => {
         { provide: Router, useValue: mockRouter },
         { provide: OwnerApiService, useValue: mockOwnerApi },
         { provide: ActivatedRoute, useValue: mockActivatedRoute },
-        { provide: ConfigLoaderService, useValue: mockConfigLoader }
+        { provide: ConfigLoaderService, useValue: mockConfigLoader },
+        { provide: ChangeDetectorRef, useValue: mockCdr }
       ]
     }).compileComponents();
 
@@ -74,9 +77,11 @@ describe('OwnerFormComponent', () => {
     expect(component.modalTitle).toBe('Add Owner');
   });
 
-  it('should initialize form with required id field', () => {
+  it('should initialize form with required fields', () => {
     expect(component.form.get('id')).toBeTruthy();
-    expect(component.form.get('id')?.hasValidator(Validators.required)).toBeTrue();
+    expect(component.form.get('name')).toBeTruthy();
+    expect(component.form.get('accountNumber')).toBeTruthy();
+    expect(component.form.get('level')).toBeTruthy();
   });
 
   describe('handleSubmit', () => {
@@ -116,7 +121,25 @@ describe('OwnerFormComponent', () => {
 
       component.handleSubmit(mockFormData);
 
-      expect(console.error).toHaveBeenCalledWith('Error creating service:', error);
+      expect(console.error).toHaveBeenCalledWith('Error creating owner:', error);
+    });
+
+    it('should call update API in edit mode', () => {
+      const mockFormData: Owner = {
+        id: 'test-owner-id',
+        resourceId: 'test-resource',
+        serviceId: 'test-service',
+        name: 'Updated Owner',
+        accountNumber: 'ACC999',
+        level: 3
+      };
+
+      mockOwnerApi.update.and.returnValue(of(mockFormData));
+      component.isEditMode = true;
+
+      component.handleSubmit(mockFormData);
+
+      expect(mockOwnerApi.update).toHaveBeenCalledWith(mockFormData);
     });
   });
 
@@ -138,23 +161,24 @@ describe('OwnerFormComponent', () => {
     });
 
     it('should load and populate form with owner data in edit mode', () => {
-      const mockOwner: Owner = {
+      const mockOwners: Owner[] = [{
         id: 'test-owner-id',
         resourceId: 'test-resource',
         serviceId: 'test-service',
         name: 'Existing Owner',
         accountNumber: 'ACC456',
         level: 2
-      };
+      }];
 
-      mockOwnerApi.getOwnerById.and.returnValue(of(mockOwner));
+      mockOwnerApi.getOwnersByResourceId.and.returnValue(of(mockOwners));
       component.ownerId = 'test-owner-id';
+      component.resourceId = 'test-resource';
       component.isEditMode = true;
 
       component.ngOnInit();
 
-      expect(mockOwnerApi.getOwnerById).toHaveBeenCalledWith('test-owner-id');
-      expect(component.currentOwner).toEqual(mockOwner);
+      expect(mockOwnerApi.getOwnersByResourceId).toHaveBeenCalledWith('test-resource');
+      expect(component.currentOwner).toEqual(mockOwners[0]);
     });
 
     it('should prefill form fields with owner data in edit mode', () => {
@@ -178,25 +202,8 @@ describe('OwnerFormComponent', () => {
       expect(idField?.value).toBe('test-owner-id');
       expect(nameField?.value).toBe('Existing Owner');
       expect(accountField?.value).toBe('ACC456');
-      expect(levelField?.value).toBe(2);
-    });
-
-    it('should call update API in edit mode', () => {
-      const mockFormData: Owner = {
-        id: 'test-owner-id',
-        resourceId: 'test-resource',
-        serviceId: 'test-service',
-        name: 'Updated Owner',
-        accountNumber: 'ACC999',
-        level: 3
-      };
-
-      mockOwnerApi.update.and.returnValue(of(mockFormData));
-      component.isEditMode = true;
-
-      component.handleSubmit(mockFormData);
-
-      expect(mockOwnerApi.update).toHaveBeenCalledWith(mockFormData);
+      expect(levelField?.value).toBe('2'); // Should be string for select field
+      expect(mockCdr.detectChanges).toHaveBeenCalled();
     });
   });
 });

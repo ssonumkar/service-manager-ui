@@ -21,8 +21,21 @@ export class TableComponent {
 
   getRowValue(row: any, header: string): any {
     console.log(row, header);
-    const key = header.toLowerCase().replace(/\s+/g, '');
-    return row[key] ?? row[header] ?? '';
+    // Try multiple variations to match property names
+    const variations = [
+      header.toLowerCase().replace(/\s+/g, ''), // 'accountnumber'
+      header.charAt(0).toLowerCase() + header.slice(1).replace(/\s+/g, ''), // 'accountNumber'
+      header.replace(/\s+/g, ''), // 'AccountNumber'
+      header // original header
+    ];
+    
+    for (const key of variations) {
+      if (row.hasOwnProperty(key) && row[key] !== undefined && row[key] !== null) {
+        return row[key];
+      }
+    }
+    
+    return '';
   }
 }
  

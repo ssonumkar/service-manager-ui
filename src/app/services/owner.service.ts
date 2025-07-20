@@ -18,6 +18,10 @@ export class OwnerApiService {
         return this.http.get<Owner[]>(`${this.baseUrl}/by-resource/${resourceId}`);
     }
 
+    getOwnerById(ownerId: string): Observable<Owner> {
+        return this.http.get<Owner>(`${this.baseUrl}/${ownerId}`);
+    }
+
     create(owner: Owner): Observable<Owner> {
         return this.http.post<Owner>(this.baseUrl, owner);
     }

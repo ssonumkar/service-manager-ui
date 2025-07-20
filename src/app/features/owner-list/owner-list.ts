@@ -64,8 +64,9 @@ export class OwnerListComponent {
       this.deleteOwner(event.row.id);
     }
   }
-  editOwner(owner: string): void {
+  editOwner(owner: Owner): void {
     console.log('Edit Owner:', owner);
+    this.router.navigate(['/owner', this.serviceId, this.resourceId, owner.id, 'edit']);
   }
   handleBack(): void {
     this.router.navigate(['/resource', this.serviceId, 'edit']);

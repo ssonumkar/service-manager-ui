@@ -64,6 +64,20 @@ describe('OwnerApiService', () => {
     });
   });
 
+  describe('getOwnerById', () => {
+    it('should return a specific owner by id', () => {
+      const ownerId = 'test-id';
+
+      service.getOwnerById(ownerId).subscribe(owner => {
+        expect(owner).toEqual(mockOwner);
+      });
+
+      const req = httpMock.expectOne(`${baseUrl}/${ownerId}`);
+      expect(req.request.method).toBe('GET');
+      req.flush(mockOwner);
+    });
+  });
+
   describe('create', () => {
     it('should create a new owner', () => {
       service.create(mockOwner).subscribe(owner => {

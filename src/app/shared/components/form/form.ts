@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormField } from './form-field.model';
 import { CommonEngine } from '@angular/ssr/node';
@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './form.html',
   styleUrl: './form.scss'
 })
-export class FormComponent {
+export class FormComponent implements OnChanges {
   @Input() fields: FormField[] = [];
   @Output() formSubmit = new EventEmitter<any>();
 
@@ -20,13 +20,17 @@ export class FormComponent {
     this.form = this.fb.group({});
   }
 
-  ngOnChanges(): void {
-    if (this.fields.length > 0) {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['fields'] && this.fields.length > 0) {
+      console.log('FormComponent ngOnChanges - fields changed:', this.fields);
       const group: any = {};
       this.fields.forEach(field => {
-        group[field.name] = field.required ? [null, Validators.required] : [null];
+        const defaultValue = field.value !== undefined ? field.value : null;
+        console.log(`Setting field ${field.name} to value:`, defaultValue);
+        group[field.name] = field.required ? [defaultValue, Validators.required] : [defaultValue];
       });
       this.form = this.fb.group(group);
+      console.log('FormComponent - created form with values:', this.form.value);
     }
   }
 

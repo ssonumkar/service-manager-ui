@@ -39,14 +39,6 @@ export const FORM_FIELD_CONFIG: { [key: string]: FormField[] } = {
       validators: ['required']
     },
     {
-      label: 'Mobile Number',
-      name: 'mobileNumber',
-      type: 'text',
-      required: true,
-      placeholder: 'Enter Mobile Number',
-      validators: ['required', '^\\+?[0-9\\-\\s]{7,15}$']
-    },
-    {
       label: 'Account Number',
       name: 'accountNumber',
       type: 'text',

@@ -1,4 +1,4 @@
-export interface Filter { 
+export interface DropdownFilter { 
     label: string, 
     options: string[], 
     selected: string, 
