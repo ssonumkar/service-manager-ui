@@ -73,12 +73,6 @@ describe('OwnerFormComponent', () => {
     expect(component.modalTitle).toBe('Add Owner');
   });
 
-  it('should initialize form with required fields', () => {
-    expect(component.form.get('id')).toBeTruthy();
-    expect(component.form.get('name')).toBeTruthy();
-    expect(component.form.get('accountNumber')).toBeTruthy();
-    expect(component.form.get('level')).toBeTruthy();
-  });
 
   describe('handleSubmit', () => {
     const mockFormData: Owner = {

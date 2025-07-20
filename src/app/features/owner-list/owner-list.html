@@ -6,6 +6,8 @@
     [columns]="columns"
     [rows]="owners"
     [actions]="actions"
+    [editTooltip]="'Edit Owner'"
+    [deleteTooltip]="'Delete Owner'"
     (newClick)="onNewOwner()"
     (actionClick)="handleAction($event)"
     (backClick)="handleBack()">

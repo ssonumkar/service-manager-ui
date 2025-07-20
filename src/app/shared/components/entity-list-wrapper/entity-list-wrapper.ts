@@ -17,6 +17,8 @@ export class EntityListWrapperComponent {
   @Input() actions: string[] = []; // ['edit', 'delete']
   @Input() data: any[] = [];
   @Input() showBackButton: boolean = false; // Flag to control the visibility of the back button
+  @Input() editTooltip: string = 'Edit'; // Dynamic tooltip for edit button
+  @Input() deleteTooltip: string = 'Delete'; // Dynamic tooltip for delete button
   @Output() newClick = new EventEmitter<void>();
   @Output() backClick = new EventEmitter<void>();
   @Output() actionClick = new EventEmitter<{ action: string; row: any }>();

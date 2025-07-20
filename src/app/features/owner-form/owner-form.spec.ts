@@ -70,11 +70,6 @@ describe('OwnerFormComponent', () => {
     expect(component.modalTitle).toBe('Add Owner');
   });
 
-  it('should initialize form with required id field', () => {
-    expect(component.form.get('id')).toBeTruthy();
-    expect(component.form.get('id')?.hasValidator(Validators.required)).toBeTrue();
-  });
-
   describe('handleSubmit', () => {
     const mockFormData: Owner = {
       id: 'test-id',

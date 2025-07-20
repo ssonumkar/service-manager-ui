@@ -6,6 +6,8 @@
     [rows]="resources"
     [actions]="actions"
     [showBackButton]="showBackButton"
+    [editTooltip]="'Edit Owners'"
+    [deleteTooltip]="'Delete Resource'"
     (newClick)="onNewService()"
     (actionClick)="handleAction($event)"
     (backClick)="handleBack()">

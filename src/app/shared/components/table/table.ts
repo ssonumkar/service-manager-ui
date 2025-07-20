@@ -12,6 +12,8 @@ export class TableComponent {
   @Input() headers: string[] = [];
   @Input() rows: any[] = [];
   @Input() actions: string[] = [];
+  @Input() editTooltip: string = 'Edit'; // Dynamic tooltip for edit button
+  @Input() deleteTooltip: string = 'Delete'; // Dynamic tooltip for delete button
 
   @Output() actionClick = new EventEmitter<{ action: string; row: any }>();
 
