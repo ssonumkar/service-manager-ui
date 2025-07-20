@@ -1,0 +1,12 @@
+<div class="modal-footer d-flex justify-end gap-2">
+  <button 
+    *ngFor="let btn of footerButtons"
+    class="btn"
+    [ngClass]="{
+      'btn-primary': btn.type === 'primary',
+      'btn-secondary': btn.type === 'secondary',
+    }"
+    (click)="handleClick(btn.action)">
+    {{ btn.label }}
+  </button>
+</div>

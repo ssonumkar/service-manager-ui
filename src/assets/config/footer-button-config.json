@@ -1,0 +1,14 @@
+{
+    "footerButtons": [
+    {
+      "label": "Cancel",
+      "action": "cancel",
+      "type": "secondary"
+    },
+    {
+      "label": "Submit",
+      "action": "submit",
+      "type": "primary"
+    }
+  ]
+}
