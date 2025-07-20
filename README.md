@@ -146,4 +146,9 @@ npm install
 chmod +x run-app.sh
 ./run-app.sh
 ```
+5. **Optionally run application inside the docker container**
+````bash
+docker build -t service-manager-ui .
+docker run -p 4200:4200 service-manager-ui
+````
 
