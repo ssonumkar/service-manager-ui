@@ -3,10 +3,6 @@ import { ServiceApiService } from '../../services/service-api.service';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { Service } from '../../models/service.model';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { StateService } from '../../shared/services/state.service';
-import { StateKeys } from '../../shared/constants/state.constants';
-import { TableComponent } from '../../shared/components/table/table';
 import { EntityListWrapperComponent } from '../../shared/components/entity-list-wrapper/entity-list-wrapper';
 import { filter, Subscription } from 'rxjs';
 
@@ -22,7 +18,7 @@ export class ServiceListComponent implements OnInit {
   buttonText = 'New Service';
   columns = ['ID'];
   actions = ['edit', 'delete'];
-  keys = ['id']; // Only one key for data column
+  keys = ['id']; 
   routerSubscription!: Subscription;
   constructor(
     private serviceApi: ServiceApiService,
@@ -42,7 +38,7 @@ export class ServiceListComponent implements OnInit {
       next: (data) => {
         this.services = data;
         console.log("Data fetched for services: ", this.services);
-        this.cdr.detectChanges(); // Ensure change detection runs after data load
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error('Error loading services:', err);
@@ -50,9 +46,7 @@ export class ServiceListComponent implements OnInit {
     });
   }
 
-  editService(service: string): void {
-    
-    // this.stateService.setState(StateKeys.Service, service); resource/:id/edit
+  editService(service: string): void {    
     this.router.navigate(['/resource', service, 'edit']);
   }
 
@@ -73,6 +67,7 @@ export class ServiceListComponent implements OnInit {
     }
   }
   onNewService() {
-    console.log('Create new service');
+    this.router.navigate(['/service', 'new']);
   }
+
 }

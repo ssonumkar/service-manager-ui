@@ -5,6 +5,8 @@
     [columns]="columns"
     [rows]="resources"
     [actions]="actions"
+    [showBackButton]="showBackButton"
     (newClick)="onNewService()"
-    (actionClick)="handleAction($event)">
+    (actionClick)="handleAction($event)"
+    (backClick)="handleBack()">
 </app-entity-list-wrapper>
