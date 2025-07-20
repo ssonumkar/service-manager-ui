@@ -141,10 +141,9 @@ npm install
 - Update `src/environments/environment.ts` with your API URL
 - Modify other environment files as needed
 
-4. **Start development server**
+4. **Give Permissons and run**
 ```bash
-ng serve
+chmod +x run-app.sh
+./run-app.sh
 ```
 
-5. **Access the application**
-- Open browser to `http://localhost:4200`
