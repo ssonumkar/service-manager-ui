@@ -11,9 +11,9 @@ export const routes: Routes = [
     {path: 'service/new', component: ServiceFormComponent},
     {path: 'service/:id/edit', component: ServiceFormComponent},
     {path: 'service/:id/resources', component: ResourceListComponent},
-    {path: 'resource/new', component: ResourceFormComponent},
+    {path: 'resource/:id/new', component: ResourceFormComponent},
     {path: 'resource/:id/edit', component: ResourceListComponent},
-    {path: 'resource/:id/owners', component: OwnerListComponent},
-    {path: 'owner/new', component: OwnerFormComponent},
+    {path: 'owner/:serviceId/:resourceId/edit', component: OwnerListComponent},
+    {path: 'owner/:serviceId/:resourceId/new', component: OwnerFormComponent},
     {path: 'owner/:id/edit', component: OwnerListComponent}
 ];

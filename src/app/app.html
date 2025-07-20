@@ -1,23 +1,13 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
   <div class="container-fluid">
     <a class="navbar-brand d-flex align-items-center" routerLink="/">
-      <img src="assets/swisscom-logo.jpeg" alt="Swisscom Logo" height="36" class="me-2" />
-      <span class="fw-bold">Swisscom Services</span>
+      <!-- <img src="../assets/images/logo.jpeg" alt="Swisscom Logo" height="36" class="me-2" /> -->
+      <span class="fw-bold">
+        <a routerLink="/services" class="text-decoration-none">Swisscom Services</a> 
+      </span>
     </a>
 
-    <div class="collapse navbar-collapse justify-content-start">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/services" routerLinkActive="active">Services</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/resources" routerLinkActive="active">Resources</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/owners" routerLinkActive="active">Owners</a>
-        </li>
-      </ul>
-    </div>
+
   </div>
 </nav>
 
