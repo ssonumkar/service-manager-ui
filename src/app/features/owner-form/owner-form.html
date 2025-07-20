@@ -1,16 +1,11 @@
-<form *ngIf="owner">
-  <label>
-    Name:
-    <input [(ngModel)]="owner.name" name="name" />
-  </label>
-
-  <label>
-    Account:
-    <input [(ngModel)]="owner.accountNumber" name="accountNumber" />
-  </label>
-
-  <label>
-    Level:
-    <input type="number" [(ngModel)]="owner.level" name="level" />
-  </label>
-</form>
+<app-modal-wrapper
+  *ngIf="showModal"
+  [title]="'Add Resource'"
+  (close)="closeModal()"
+>
+  <app-form
+    [fields]="formFields"
+    (formSubmit)="handleSubmit($event)"
+    (cancel)="closeModal()"
+  ></app-form>
+</app-modal-wrapper>
