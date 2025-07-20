@@ -11,12 +11,14 @@ import { FormsModule } from '@angular/forms';
 })
 export class EntityListWrapperComponent {
   @Input() title: string = '';
-  @Input() buttonText: string = '➕ New';
+  @Input() buttonText: string = 'New';
   @Input() columns: string[] = [];
   @Input() rows: any[] = [];
   @Input() actions: string[] = []; // ['edit', 'delete']
   @Input() data: any[] = [];
+  @Input() showBackButton: boolean = false; // Flag to control the visibility of the back button
   @Output() newClick = new EventEmitter<void>();
+  @Output() backClick = new EventEmitter<void>();
   @Output() actionClick = new EventEmitter<{ action: string; row: any }>();
 
   handleAction(event: { action: string; row: any }) {
