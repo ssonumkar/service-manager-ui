@@ -1,30 +1,71 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { OwnerListComponent } from '../owner-list/owner-list';
-import { ToggleSection } from "../../shared/components/toggle-section/toggle-section";
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ConfigLoaderService } from '../../config/config-loader';
+import { FORM_FIELD_CONFIG } from '../../config/form-field-config';
+import { Resource } from '../../models/resource.model';
+import { ResourceApiService } from '../../services/resource-api.service';
+import { FormComponent } from '../../shared/components/form/form';
+import { FormField } from '../../shared/components/form/form-field.model';
+import { FooterButton } from '../../shared/components/modal-footer/footer-button.model';
+import { ModalWrapper } from '../../shared/components/modal-wrapper/modal-wrapper';
 
 @Component({
   selector: 'app-resource-form',
-  imports: [CommonModule, FormsModule, ToggleSection],
+  imports: [CommonModule, FormsModule, ModalWrapper, FormComponent],
   templateUrl: './resource-form.html',
   styleUrl: './resource-form.scss'
 })
 export class ResourceFormComponent {
+  serviceId: string = '';
+  showModal = true;
+  form: FormGroup;
+  formFields: FormField[] = []
+  footerButtons: FooterButton[] = [];
 
-  @Input() resource: any = {}; // Initialize with an empty object or a specific resource model
-  removeOwners(arg0: any) {
-    throw new Error('Method not implemented.');
+  service: any = {}; 
+
+  constructor(
+    private router: Router,
+    private resourceApi: ResourceApiService,
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private configLoader: ConfigLoaderService,
+  ) {
+    this.form = this.fb.group({
+      id: ['', Validators.required]
+    });
+  }
+  async ngOnInit() {
+    console.log('ServiceFormComponent initialized');
+    this.formFields = FORM_FIELD_CONFIG['resourceCreateForm'];
+    this.serviceId = this.route.snapshot.paramMap.get('id') || '';
+    this.showModal = true;
+  }
+  handleModalFooterAction(action: boolean) {
+    if (action) {
+      this.closeModal();
+    }
   }
 
-  @Output() remove = new EventEmitter<string>();
+  handleSubmit(formData: Resource) {
+    console.log('Form submitted with values:', formData);
+    formData.serviceId = this.serviceId;
+    this.resourceApi.create(formData).subscribe({
+      next: () => {
+        this.closeModal();
+        this.router.navigate(['/resource', this.serviceId, 'edit']);
+      },
+      error: (err) => {
+        console.error('Error creating service:', err);
+      }
+    });
+  }
 
-  addOwner() {
-    this.resource.owners.push({
-    id: 'owner_' + Date.now(),
-    name: '',
-    accountNumber: '',
-    level: 1
-  });
+  closeModal() {
+    console.log("close called");
+    this.showModal = false;
+    this.router.navigate(['/resource', this.serviceId, 'edit']);
   }
 }

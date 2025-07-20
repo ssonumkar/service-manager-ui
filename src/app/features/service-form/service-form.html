@@ -1,12 +1,11 @@
-<h2>Edit Service: {{ service?.id }}</h2>
-
-<button (click)="addResource()">➕ Add Resource</button>
-
-<!-- <app-resource-list [resources]="service?.resources"></app-resource-list> -->
-
-
-<!-- Action Buttons -->
-<div class="actions">
-  <button (click)="onSubmit()">Submit</button>
-  <button type="button" (click)="onCancel()">Cancel</button>
-</div>
+<app-modal-wrapper
+  *ngIf="showModal"
+  [title]="'Add Service'"
+  (close)="closeModal()"
+>
+  <app-form
+    [fields]="formFields"
+    (formSubmit)="handleSubmit($event)"
+    (cancel)="closeModal()"
+  ></app-form>
+</app-modal-wrapper>

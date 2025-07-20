@@ -1,60 +1,65 @@
-import { Component, inject } from '@angular/core';
-import { ResourceListComponent } from '../resource-list/resource-list';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ServiceApiService } from '../../services/service-api.service';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { StateService } from '../../shared/services/state.service';
-import { StateKeys } from '../../shared/constants/state.constants';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ConfigLoaderService } from '../../config/config-loader';
+import { FORM_FIELD_CONFIG } from '../../config/form-field-config';
+import { Service } from '../../models/service.model';
+import { ServiceApiService } from '../../services/service-api.service';
+import { FormComponent } from '../../shared/components/form/form';
+import { FormField } from '../../shared/components/form/form-field.model';
+import { FooterButton } from '../../shared/components/modal-footer/footer-button.model';
+import { ModalWrapper } from '../../shared/components/modal-wrapper/modal-wrapper';
 
 @Component({
   selector: 'app-service-form',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ModalWrapper, FormComponent],
   templateUrl: './service-form.html',
   styleUrl: './service-form.scss',
   standalone: true
 })
 export class ServiceFormComponent {
-  
+  showModal = true;
+  form: FormGroup;
+  formFields: FormField[] = []
+  footerButtons: FooterButton[] = [];
 
   service: any = {}; // Initialize with an empty object or a specific service model
   
   constructor(
       private route: ActivatedRoute,
       private router: Router,
-      private api: ServiceApiService,
-      private stateService: StateService
-    ) {}
-
-  ngOnInit() {
-    this.service = this.stateService.getState(StateKeys.Service);
-    console.log('Service loaded from state:', this.service);
+      private serviceApi: ServiceApiService,
+      private fb: FormBuilder,
+      private configLoader: ConfigLoaderService,
+    ) {
+      this.form = this.fb.group({
+      id: ['', Validators.required]
+    });
+    }
+  async ngOnInit() {
+    console.log('ServiceFormComponent initialized'); 
+    this.formFields = FORM_FIELD_CONFIG['serviceCreateForm'];
+    this.showModal = true;
   }
-  addResource() {
-     this.service.resources.push({
-    id: 'res_' + Date.now(),
-    owners: []
-  });
-  }
-  editResource(resource: any) {
-    this.stateService.setState(StateKeys.Resource, resource);
-    // Navigate to the resource edit page
-
-  }
-  onCancel() {
-    console.log('Edit cancelled');
-    this.router.navigate(['/']);
-  }
-  onSubmit() {
-    console.log('Service submitted:', this.service);
-    this.api.updateService(this.service).subscribe({
-      next: (response) => {
-        console.log('Service updated successfully', response);
-        this.router.navigate(['../'], { relativeTo: this.route });
+  
+  handleSubmit(formData: Service) {
+    this.serviceApi.createService(formData).subscribe({
+      next: () => {
+        this.closeModal(); // true to indicate refresh
       },
-      error: (error) => {
-        console.error('Error updating service', error);
+      error: (err) => {
+        console.error('Error creating service:', err);
       }
     });
+  }
+
+  closeModal() {
+    console.log("close called");
+    this.showModal = false;
+    this.router.navigate(['/services']);
+    // if (refresh) {
+      
+    // }
   }
 }
