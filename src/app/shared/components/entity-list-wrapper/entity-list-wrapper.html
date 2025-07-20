@@ -3,7 +3,6 @@
     <h2 class="me-3 mb-0">{{ title }}</h2>
   </div>
 
-  <!-- Pass data to the table -->
     <app-table
     [headers]="columns"
     [rows]="rows"
@@ -13,7 +12,6 @@
     (actionClick)="handleAction($event)">
   </app-table>
   <div class="mb-3"></div>
-  <!-- Show Back Button if enabled -->
   
   <div class="entity-header d-flex align-items-center justify-content-center mb-3">
       <div *ngIf="showBackButton" >

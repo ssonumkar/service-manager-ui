@@ -33,7 +33,6 @@ export class OwnerFormComponent {
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef
   ) {
-    // Form is handled by FormComponent, no need to create it here
   }
   async ngOnInit() {
     this.formFields = FORM_FIELD_CONFIG['ownerCreateForm'];
@@ -61,7 +60,6 @@ export class OwnerFormComponent {
   private async loadOwnerForEdit(): Promise<void> {
     try {
       console.log('Loading owner for edit, ownerId:', this.ownerId);
-      // Use the direct API to fetch owner by ID
       this.ownerApi.getOwnerById(this.ownerId).subscribe({
         next: (owner) => {
           console.log('Loaded owner:', owner);
@@ -82,18 +80,16 @@ export class OwnerFormComponent {
   public populateForm(owner: Owner): void {
     console.log('Populating form with owner data:', owner);
     
-    // Create a mapping of field names to owner values
     const valueMap: { [key: string]: any } = {
       'id': owner.id,
       'name': owner.name,
       'accountNumber': owner.accountNumber,
-      'level': owner.level.toString() // Convert to string for select field
+      'level': owner.level.toString() 
     };
 
     console.log('Value map:', valueMap);
     console.log('Form fields before update:', this.formFields);
 
-    // Create a completely new array to ensure Angular detects the change
     const updatedFields: FormField[] = [];
     this.formFields.forEach(field => {
       updatedFields.push({
@@ -106,7 +102,6 @@ export class OwnerFormComponent {
     
     console.log('Form fields after update:', this.formFields);
     
-    // Trigger change detection to ensure the form component updates
     this.cdr.detectChanges();
   }
 
@@ -115,7 +110,6 @@ export class OwnerFormComponent {
     formData.serviceId = this.serviceId;
     
     if (this.isEditMode) {
-      // Update existing owner
       this.ownerApi.update(formData).subscribe({
         next: () => {
           console.log('Owner updated successfully');
@@ -126,7 +120,6 @@ export class OwnerFormComponent {
         }
       });
     } else {
-      // Create new owner
       this.ownerApi.create(formData).subscribe({
         next: () => {
           console.log('Owner created successfully');

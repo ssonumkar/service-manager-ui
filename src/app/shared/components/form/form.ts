@@ -76,7 +76,6 @@ export class FormComponent implements OnChanges {
     if (this.form.valid) {
       this.formSubmit.emit(this.form.value);
     } else {
-      // Mark all fields as touched to show validation errors
       this.markAllFieldsAsTouched();
     }
   }
@@ -110,7 +109,6 @@ export class FormComponent implements OnChanges {
         return `${this.getFieldLabel(fieldName)} is required`;
       }
       if (field.errors['pattern']) {
-        // More specific error message for account number pattern
         if (fieldName === 'accountNumber') {
           return 'Account Number must be 10-12 digits';
         }

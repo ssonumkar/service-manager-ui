@@ -5,7 +5,6 @@
       <span *ngIf="field.required" class="text-danger">*</span>
     </label>
     
-    <!-- Input fields -->
     <input
       *ngIf="field.type !== 'select'"
       [type]="field.type"
@@ -18,7 +17,6 @@
       [formControlName]="field.name" 
     />
     
-    <!-- Select fields -->
     <select
       *ngIf="field.type === 'select'"
       class="form-control"
@@ -32,7 +30,6 @@
       <option *ngFor="let option of field.options" [value]="option">{{ option }}</option>
     </select>
     
-    <!-- Validation error messages -->
     <div *ngIf="getFieldError(field.name)" class="invalid-feedback d-block">
       {{ getFieldError(field.name) }}
     </div>

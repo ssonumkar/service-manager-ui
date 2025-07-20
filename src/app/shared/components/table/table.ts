@@ -23,12 +23,11 @@ export class TableComponent {
 
   getRowValue(row: any, header: string): any {
     console.log(row, header);
-    // Try multiple variations to match property names
     const variations = [
-      header.toLowerCase().replace(/\s+/g, ''), // 'accountnumber'
-      header.charAt(0).toLowerCase() + header.slice(1).replace(/\s+/g, ''), // 'accountNumber'
-      header.replace(/\s+/g, ''), // 'AccountNumber'
-      header // original header
+      header.toLowerCase().replace(/\s+/g, ''), 
+      header.charAt(0).toLowerCase() + header.slice(1).replace(/\s+/g, ''), 
+      header.replace(/\s+/g, ''), 
+      header 
     ];
     
     for (const key of variations) {

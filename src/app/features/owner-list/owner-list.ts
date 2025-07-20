@@ -47,7 +47,7 @@ export class OwnerListComponent {
     this.ownerApiService.getOwnersByResourceId(this.resourceId).subscribe({
       next: (data) => {
         this.owners = data;
-        this.cdr.detectChanges(); // Ensure change detection runs after data load
+        this.cdr.detectChanges(); 
       },
       error: (err) => {
         console.error('Error loading owners:', err);

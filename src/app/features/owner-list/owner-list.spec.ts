@@ -50,7 +50,6 @@ describe('OwnerListComponent', () => {
     fixture = TestBed.createComponent(OwnerListComponent);
     component = fixture.componentInstance;
     
-    // Setup default mock responses
     mockOwnerApi.getOwnersByResourceId.and.returnValue(of([mockOwner]));
     
     fixture.detectChanges();

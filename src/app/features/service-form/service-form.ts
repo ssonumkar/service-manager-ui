@@ -22,7 +22,7 @@ export class ServiceFormComponent {
   formFields: FormField[] = []
   footerButtons: FooterButton[] = [];
 
-  service: any = {}; // Initialize with an empty object or a specific service model
+  service: any = {}; 
   
   constructor(
       private route: ActivatedRoute,
@@ -39,7 +39,7 @@ export class ServiceFormComponent {
   handleSubmit(formData: Service) {
     this.serviceApi.createService(formData).subscribe({
       next: () => {
-        this.closeModal(); // true to indicate refresh
+        this.closeModal(); 
       },
       error: (err) => {
         console.error('Error creating service:', err);
@@ -51,8 +51,5 @@ export class ServiceFormComponent {
     console.log("close called");
     this.showModal = false;
     this.router.navigate(['/services']);
-    // if (refresh) {
-      
-    // }
   }
 }
