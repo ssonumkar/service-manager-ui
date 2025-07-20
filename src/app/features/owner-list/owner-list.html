@@ -2,10 +2,14 @@
   <app-entity-list-wrapper
     [title]="title"
     [buttonText]="buttonText"
+    [showBackButton]="showBackButton"
     [columns]="columns"
     [rows]="owners"
     [actions]="actions"
     (newClick)="onNewOwner()"
-    (actionClick)="handleAction($event)">
+    (actionClick)="handleAction($event)"
+    (backClick)="handleBack()">
   </app-entity-list-wrapper>
+    <!-- <button class="btn btn-secondary" (click)="handleBack()">Back</button> -->
+
 </div>
