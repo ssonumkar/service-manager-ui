@@ -1,0 +1,13 @@
+<div class="modal-backdrop">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3>{{ title }}</h3>
+      <button class="btn-close" (click)="closeModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <ng-content></ng-content>
+    </div>
+  </div>
+
+  <app-modal-footer [footerButtons]="footerButtons" (actionClick)="handleClick($event)"></app-modal-footer>
+</div>
