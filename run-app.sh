@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # File: run-app.sh
-
+echo "Node and Npm should be pre-installed before running this script"
 # Install dependencies if not already installed
 if [ ! -d "node_modules" ]; then
     echo "Installing Angular dependencies..."
