@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FORM_FIELD_CONFIG } from '../../config/form-field-config';
 import { Service } from '../../models/service.model';
@@ -19,7 +19,6 @@ import { ModalWrapper } from '../../shared/components/modal-wrapper/modal-wrappe
 })
 export class ServiceFormComponent {
   showModal = true;
-  form: FormGroup;
   formFields: FormField[] = []
   footerButtons: FooterButton[] = [];
 
@@ -28,12 +27,8 @@ export class ServiceFormComponent {
   constructor(
       private route: ActivatedRoute,
       private router: Router,
-      private serviceApi: ServiceApiService,
-      private fb: FormBuilder,
+      private serviceApi: ServiceApiService
     ) {
-      this.form = this.fb.group({
-      id: ['', Validators.required]
-    });
     }
   async ngOnInit() {
     console.log('ServiceFormComponent initialized'); 

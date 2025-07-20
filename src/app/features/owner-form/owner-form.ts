@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FORM_FIELD_CONFIG } from '../../config/form-field-config';
 import { Owner } from '../../models/owner.model';
@@ -22,7 +22,6 @@ export class OwnerFormComponent {
   serviceId: string = '';
   ownerId: string = '';
   showModal = true;
-  form: FormGroup;
   formFields: FormField[] = [];
   isEditMode = false;
   currentOwner: Owner | null = null;
@@ -31,16 +30,10 @@ export class OwnerFormComponent {
   constructor(
     private router: Router,
     private ownerApi: OwnerApiService,
-    private fb: FormBuilder,
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef
   ) {
-    this.form = this.fb.group({
-      id: ['', Validators.required],
-      name: ['', Validators.required],
-      accountNumber: ['', Validators.required],
-      level: [1, [Validators.required, Validators.min(1)]]
-    });
+    // Form is handled by FormComponent, no need to create it here
   }
   async ngOnInit() {
     this.formFields = FORM_FIELD_CONFIG['ownerCreateForm'];

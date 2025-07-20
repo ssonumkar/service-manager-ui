@@ -1,12 +1,17 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div *ngFor="let field of fields" class="mb-3">
-    <label [for]="field.name" class="form-label">{{ field.label }}</label>
+    <label [for]="field.name" class="form-label">
+      {{ field.label }}
+      <span *ngIf="field.required" class="text-danger">*</span>
+    </label>
     
     <!-- Input fields -->
     <input
       *ngIf="field.type !== 'select'"
       [type]="field.type"
       class="form-control"
+      [class.is-invalid]="isFieldInvalid(field.name)"
+      [class.is-valid]="form.get(field.name)?.valid && (form.get(field.name)?.dirty || form.get(field.name)?.touched)"
       [id]="field.name"
       [placeholder]="field.placeholder"
       [required]="!!field.required"
@@ -17,6 +22,8 @@
     <select
       *ngIf="field.type === 'select'"
       class="form-control"
+      [class.is-invalid]="isFieldInvalid(field.name)"
+      [class.is-valid]="form.get(field.name)?.valid && (form.get(field.name)?.dirty || form.get(field.name)?.touched)"
       [id]="field.name"
       [required]="!!field.required"
       [formControlName]="field.name"
@@ -24,6 +31,14 @@
       <option value="" disabled>{{ field.placeholder }}</option>
       <option *ngFor="let option of field.options" [value]="option">{{ option }}</option>
     </select>
+    
+    <!-- Validation error messages -->
+    <div *ngIf="getFieldError(field.name)" class="invalid-feedback d-block">
+      {{ getFieldError(field.name) }}
+    </div>
   </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+  
+  <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+    Submit
+  </button>
 </form>

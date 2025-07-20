@@ -6,7 +6,7 @@ export const FORM_FIELD_CONFIG: { [key: string]: FormField[] } = {
       label: 'Service ID',
       name: 'id',
       type: 'text',
-      required: false,
+      required: true,
       placeholder: 'Enter Service ID',
       validators: ['required']
     }
@@ -16,7 +16,7 @@ export const FORM_FIELD_CONFIG: { [key: string]: FormField[] } = {
       label: 'Resource ID',
       name: 'id',
       type: 'text',
-      required: false,
+      required: true,
       placeholder: 'Enter Resource ID',
       validators: ['required']
     }
@@ -26,7 +26,7 @@ export const FORM_FIELD_CONFIG: { [key: string]: FormField[] } = {
       label: 'Owner ID',
       name: 'id',
       type: 'text',
-      required: false,
+      required: true,
       placeholder: 'Enter Owner ID',
       validators: ['required']
     },
@@ -43,7 +43,7 @@ export const FORM_FIELD_CONFIG: { [key: string]: FormField[] } = {
       name: 'accountNumber',
       type: 'text',
       required: true,
-      placeholder: 'Enter Account Number',
+      placeholder: 'Enter Account Number (10-12 digits)',
       validators: ['required', '^[0-9]{10,12}$']
     },
     {
