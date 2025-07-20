@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ConfigLoaderService } from '../../config/config-loader';
 import { FORM_FIELD_CONFIG } from '../../config/form-field-config';
 import { Owner } from '../../models/owner.model';
 import { OwnerApiService } from '../../services/owner.service';
@@ -34,7 +33,6 @@ export class OwnerFormComponent {
     private ownerApi: OwnerApiService,
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private configLoader: ConfigLoaderService,
     private cdr: ChangeDetectorRef
   ) {
     this.form = this.fb.group({

@@ -5,7 +5,6 @@ import { ActivatedRoute, ActivatedRouteSnapshot, Router, convertToParamMap } fro
 import { of, throwError } from 'rxjs';
 import { OwnerFormComponent } from './owner-form';
 import { OwnerApiService } from '../../services/owner.service';
-import { ConfigLoaderService } from '../../config/config-loader';
 import { FORM_FIELD_CONFIG } from '../../config/form-field-config';
 import { Owner } from '../../models/owner.model';
 
@@ -15,13 +14,11 @@ describe('OwnerFormComponent', () => {
   let mockRouter: jasmine.SpyObj<Router>;
   let mockOwnerApi: jasmine.SpyObj<OwnerApiService>;
   let mockActivatedRoute: Partial<ActivatedRoute>;
-  let mockConfigLoader: jasmine.SpyObj<ConfigLoaderService>;
   let mockCdr: jasmine.SpyObj<ChangeDetectorRef>;
 
   beforeEach(async () => {
     mockRouter = jasmine.createSpyObj('Router', ['navigate']);
     mockOwnerApi = jasmine.createSpyObj('OwnerApiService', ['create', 'update', 'getOwnersByResourceId']);
-    mockConfigLoader = jasmine.createSpyObj('ConfigLoaderService', ['loadConfig']);
     mockCdr = jasmine.createSpyObj('ChangeDetectorRef', ['detectChanges']);
     mockActivatedRoute = {
       snapshot: {
@@ -54,7 +51,6 @@ describe('OwnerFormComponent', () => {
         { provide: Router, useValue: mockRouter },
         { provide: OwnerApiService, useValue: mockOwnerApi },
         { provide: ActivatedRoute, useValue: mockActivatedRoute },
-        { provide: ConfigLoaderService, useValue: mockConfigLoader },
         { provide: ChangeDetectorRef, useValue: mockCdr }
       ]
     }).compileComponents();

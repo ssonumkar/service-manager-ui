@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ConfigLoaderService } from '../../config/config-loader';
 import { FORM_FIELD_CONFIG } from '../../config/form-field-config';
 import { Service } from '../../models/service.model';
 import { ServiceApiService } from '../../services/service-api.service';
@@ -31,7 +30,6 @@ export class ServiceFormComponent {
       private router: Router,
       private serviceApi: ServiceApiService,
       private fb: FormBuilder,
-      private configLoader: ConfigLoaderService,
     ) {
       this.form = this.fb.group({
       id: ['', Validators.required]

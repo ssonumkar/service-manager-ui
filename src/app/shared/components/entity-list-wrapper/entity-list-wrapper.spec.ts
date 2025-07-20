@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { EntityListWrapperComponent } from './entity-list-wrapper';
 
-import { EntityListWrapper } from './entity-list-wrapper';
 
 describe('EntityListWrapper', () => {
-  let component: EntityListWrapper;
-  let fixture: ComponentFixture<EntityListWrapper>;
+  let component: EntityListWrapperComponent;
+  let fixture: ComponentFixture<EntityListWrapperComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EntityListWrapper]
+      imports: [EntityListWrapperComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(EntityListWrapper);
+    fixture = TestBed.createComponent(EntityListWrapperComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
